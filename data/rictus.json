@@ -1,0 +1,25 @@
+{
+  "node_id": "rictus-node",
+  "data_dir": "./data",
+  "log_level": "info",
+
+  "http": {
+    "addr": "127.0.0.1:7979",
+    "read_timeout_ms": 10000,
+    "write_timeout_ms": 10000
+  },
+
+  "auto": {
+    "enabled": true,
+    "poll_ms": 1500,
+    "watch_config": true
+  },
+
+  "stn_api": {
+    "enabled": true,
+    "url": "https://api.stn-labz.org/threat"
+  },
+  "stn_ingest_secret": "",
+  "max_workers": 2,
+  "queue_capacity": 128
+}

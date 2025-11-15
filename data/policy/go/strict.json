@@ -1,0 +1,22 @@
+{
+  "profile": "strict",
+  "min_go": "1.22",
+  "disallow_cgo": true,
+
+  "vet": { "enabled": true },
+  "golangci_lint": { "enabled": true, "fail_on_issues": true },
+
+  "tests": {
+    "enabled": true,
+    "race": true,
+    "coverage_min": 80,
+    "timeout_sec": 1200
+  },
+
+  "package": {
+    "enabled": true,
+    "include": ["**/*"],
+    "exclude": [".git/**", "build_artifacts/**"]
+  }
+}
+

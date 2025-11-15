@@ -1,0 +1,15 @@
+{
+  "profile": "strict",
+  "min_php": "8.2",
+  "lint": { "enabled": true, "fail_on_errors": true },
+  "composer": { "allowed": false, "audit": false },
+  "static_checks": {
+    "forbid_pdo": true,
+    "require_mysqli": true,
+    "require_json_config": true,
+    "module_layout": { "required_paths": ["app/modules"] }
+  },
+  "tests": { "enabled": true, "framework": "phpunit", "coverage_min": 0, "timeout_sec": 1200 },
+  "package": { "enabled": true, "include": ["**/*"], "exclude": ["vendor/**", ".git/**", "node_modules/**", "build_artifacts/**"] }
+}
+

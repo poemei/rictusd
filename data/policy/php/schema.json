@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "profile": { "type": "string" },
+    "rictusd": { "type": "string" },
+    "internal": { "type": "string" },
+    "patch_rictusd": { "type": "string" },
+
+    "min_php": { "type": "string", "pattern": "^\\d+\\.\\d+(\\.\\d+)?$" },
+
+    "lint": { "type": "object", "additionalProperties": false, "properties": { "enabled": { "type": "boolean" }, "fail_on_errors": { "type": "boolean" } } },
+
+    "composer": { "type": "object", "additionalProperties": false, "properties": { "allowed": { "type": "boolean" }, "audit": { "type": "boolean" } } },
+
+    "static_checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "forbid_pdo": { "type": "boolean" },
+        "require_mysqli": { "type": "boolean" },
+        "require_json_config": { "type": "boolean" },
+        "module_layout": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "required_paths": { "type": "array", "items": { "type": "string" } },
+            "forbid_paths": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+
+    "suggest": { "type": "object", "additionalProperties": false, "properties": { "reality": { "type": "string" } } },
+
+    "tests": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "framework": { "type": "string", "enum": ["phpunit", "none"] },
+        "coverage_min": { "type": "number", "minimum": 0, "maximum": 100 },
+        "timeout_sec": { "type": "integer", "minimum": 1 }
+      }
+    },
+
+    "package": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "include": { "type": "array", "items": { "type": "string" } },
+        "exclude": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  },
+  "required": ["min_php", "lint", "composer", "static_checks", "tests", "package"]
+}
+
