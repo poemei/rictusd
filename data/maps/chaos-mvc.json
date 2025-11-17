@@ -1,0 +1,18 @@
+{
+  "name": "chaos-mvc",
+  "path": "/opt/rictusd/projects/chaos-mvc",
+  "total_files": 3,
+  "total_dirs": 2,
+  "languages": [
+    ".md",
+    "php",
+    ".bak"
+  ],
+  "php_files": 1,
+  "go_files": 0,
+  "js_files": 0,
+  "other_files": 2,
+  "max_depth": 1,
+  "root_entries": 4,
+  "has_readme": true
+}

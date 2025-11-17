@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RictusD Console</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div class="app-title">RictusD</div>
+      <div class="app-subtitle">Local Daemon · Law-bound · Phase 1</div>
+    </header>
+
+    <main class="app-main">
+      <section class="chat-panel">
+        <div id="chat-log" class="chat-log">
+          <!-- Messages will be appended here -->
+        </div>
+      </section>
+
+      <section class="input-panel">
+        <form id="chat-form" class="chat-form" autocomplete="off">
+          <input
+            id="chat-input"
+            type="text"
+            class="chat-input"
+            placeholder="Talk to RictusD…"
+          >
+          <button type="submit" class="chat-send">Send</button>
+        </form>
+        <div class="hint">
+          Try: <code>status</code> or <code>law status</code>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      const form  = document.getElementById('chat-form');
+      const input = document.getElementById('chat-input');
+      const log   = document.getElementById('chat-log');
+
+      function appendMessage(role, text) {
+        const group = document.createElement('div');
+        group.className = 'msg-group';
+
+        const bubble = document.createElement('div');
+        bubble.className = 'msg msg-' + role;
+        bubble.textContent = text;
+
+        const label = document.createElement('div');
+        label.className = 'msg-label msg-label-' + role;
+        label.textContent = role === 'user' ? 'You' : 'RictusD';
+
+        // Your message on top, daemon reply below – as requested.
+        if (role === 'user') {
+          group.appendChild(label);
+          group.appendChild(bubble);
+        } else {
+          group.appendChild(label);
+          group.appendChild(bubble);
+        }
+
+        log.appendChild(group);
+        log.scrollTop = log.scrollHeight;
+      }
+
+      async function sendMessage(text) {
+        appendMessage('user', text);
+
+        try {
+          const res = await fetch('/chat', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message: text })
+          });
+
+          if (!res.ok) {
+            appendMessage('daemon', 'RictusD: I could not process that request (HTTP ' + res.status + ').');
+            return;
+          }
+
+          const data = await res.json();
+          if (data && typeof data.reply === 'string') {
+            appendMessage('daemon', data.reply);
+          } else {
+            appendMessage('daemon', 'RictusD: I responded, but the reply payload looked strange.');
+          }
+        } catch (err) {
+          appendMessage('daemon', 'RictusD: I encountered a network error trying to answer you.');
+        }
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const text = (input.value || '').trim();
+        if (!text) {
+          return;
+        }
+        input.value = '';
+        sendMessage(text);
+      });
+
+      // Focus input on load
+      input.focus();
+    })();
+  </script>
+</body>
+</html>

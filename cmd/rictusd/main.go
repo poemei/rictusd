@@ -1,65 +1,35 @@
-// cmd/rictusd/main.go
 package main
 
 import (
-	"context"
-	"flag"
 	"fmt"
 	"os"
-	"os/signal"
-	"path/filepath"
-	"syscall"
 
-	"rictusd/internal/api"
-	"rictusd/internal/config"
-	"rictusd/internal/core"
-	"rictusd/internal/logx"
-	"rictusd/internal/version"
-	"rictusd/internal/watch"
+	"rictusd/modules/core"
+	"rictusd/modules/server"
 )
 
 func main() {
-	var cfgPath string
-	flag.StringVar(&cfgPath, "config", "data/rictusd.json", "path to rictusd config json")
-	flag.Parse()
-
-	// Load config first so we know data_dir
-	cfg, err := config.Load(cfgPath)
+	// 1. Load core system (config, logger, dirs)
+	c, err := core.New()
 	if err != nil {
-		fmt.Println("config load failed:", err)
+		fmt.Printf("Failed to initialize core: %v\n", err)
 		os.Exit(1)
 	}
 
-	// Init logs: <data_dir>/logs/rictus.log
-	logDir := filepath.Join(cfg.DataDir, "logs")
-	logx.InitWithDir(logDir)
-	logx.Info("rictus", "starting", "version", version.String(), "log_dir", logDir)
+	c.Log.Info("RictusD starting up…")
 
-	ctx, cancel := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM, syscall.SIGHUP)
-	defer cancel()
-
-	ctrl, err := core.NewController(cfg)
+	// 2. Initialize HTTP server
+	srv, err := server.New(c)
 	if err != nil {
-		logx.Error("core", "init_failed", "err", err)
+		c.Log.Errorf("Failed to initialize server: %v", err)
 		os.Exit(1)
 	}
 
-	srv := api.NewServer(cfg, ctrl, cfgPath)
-	go func() {
-		if err := srv.Start(); err != nil {
-			logx.Error("api", "start_failed", "err", err)
-			cancel()
-		}
-	}()
+	// 3. Start listening
+	c.Log.Infof("RictusD listening on %s", c.Config.ListenAddr)
 
-	go ctrl.Run(ctx)
-	go watch.NewManager(cfgPath, cfg, ctrl.ReloadFromFile).Start(ctx)
-
-	<-ctx.Done()
-	logx.Info("rictus", "shutdown_begin")
-	_ = srv.Stop(context.Background())
-	_ = ctrl.Stop()
-	logx.Info("rictus", "shutdown_complete")
-	fmt.Println("bye.")
+	if err := srv.Start(); err != nil {
+		c.Log.Errorf("Server error: %v", err)
+		os.Exit(1)
+	}
 }
-

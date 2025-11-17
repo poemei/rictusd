@@ -1,30 +1,37 @@
-APP := rictusd
-PKG := rictusd/cmd/rictusd
-OUT := bin/$(APP)
-CTL := rictusctl
-CTL_PKG := rictusd/cmd/rictusctl
-CTL_OUT := bin/$(CTL)
+# RictusD V2 Makefile
+# Builds both rictusd (daemon) and rictusctl (control agent)
+# Output: bin/rictusd and bin/rictusctl
 
-all: build
+SHELL := /bin/bash
 
-build:
-	@mkdir -p bin
-	@go build -trimpath -ldflags="-s -w" -o $(OUT) $(PKG)
-	@echo "built $(OUT)"
-	
-	@go build -trimpath -ldflags="-s -w" -o $(CTL_OUT) $(CTL_PKG)
-	@echo "built $(CTL_OUT)"
+PROJECT_ROOT := $(CURDIR)
+BIN_DIR := $(PROJECT_ROOT)/bin
+CMD_DIR := $(PROJECT_ROOT)/cmd
 
-run: build
-	@./bin/$(APP) -config data/rictus.json
+GO := go
+GOFLAGS := -trimpath
+LDFLAGS := -s -w
+
+RDICT := $(BIN_DIR)/rictusd
+RCTL  := $(BIN_DIR)/rictusctl
+
+.PHONY: all clean dirs
+
+all: dirs $(RDICT) $(RCTL)
+
+dirs:
+	@mkdir -p $(BIN_DIR)
+
+$(RDICT): $(CMD_DIR)/rictusd/main.go
+	@echo "Building rictusd..."
+	@$(GO) build $(GOFLAGS) -ldflags "$(LDFLAGS)" -o $(RDICT) $(CMD_DIR)/rictusd
+
+$(RCTL): $(CMD_DIR)/rictusctl/main.go
+	@echo "Building rictusctl..."
+	@$(GO) build $(GOFLAGS) -ldflags "$(LDFLAGS)" -o $(RCTL) $(CMD_DIR)/rictusctl
 
 clean:
-	@rm -rf bin
-
-build-linux-amd64:
-	@mkdir -p bin
-	@GOOS=linux GOARCH=amd64 go build -trimpath -ldflags="-s -w" -o bin/$(APP)-linux-amd64 $(PKG)
-
-build-linux-arm64:
-	@mkdir -p bin
-	@GOOS=linux GOARCH=arm64 go build -trimpath -ldflags="-s -w" -o bin/$(APP)-linux-arm64 $(PKG)
+	@echo "Cleaning binaries..."
+	@rm -f $(RDICT)
+	@rm -f $(RCTL)
+	@echo "Clean complete (bin directory preserved)."

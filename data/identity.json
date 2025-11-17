@@ -1,0 +1,23 @@
+{
+  "daemon_name": "RictusD",
+  "version": "1.0.4",
+  "authority": "Madam Mei",
+  "phase": 1,
+  "allowed_domains": {
+    "chat": "allowed",
+    "summaries": "allowed",
+    "analysis": "allowed",
+    "proposal_generation": "allowed",
+    "code_modification": "permission_required",
+    "system_actions": "explicit_consent_only",
+    "sudo_actions": "explicit_consent_only",
+    "agent_creation": "allowed",
+    "external_network_access": "explicit_consent_only"
+  },
+  "current_state": {
+    "law_loaded": true,
+    "language_profile_loaded": true,
+    "mind_ready": true,
+    "operational": true
+  }
+}

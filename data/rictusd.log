@@ -1,0 +1,48 @@
+2025/11/16 03:26:55 [INFO] Core initialized: root=/opt/rictusd data=/opt/rictusd/data listen=:8080
+2025/11/16 03:26:55 [INFO] RictusD starting up…
+2025/11/16 03:26:55 [INFO] RictusD listening on :8080
+2025/11/16 03:26:55 [INFO] HTTP server starting on :8080
+2025/11/16 03:27:53 [INFO] chat message: "hello"
+2025/11/16 03:36:35 [INFO] Core initialized: root=/opt/rictusd data=/opt/rictusd/data listen=:8080
+2025/11/16 03:36:35 [INFO] RictusD starting up…
+2025/11/16 03:36:35 [INFO] RictusD listening on :8080
+2025/11/16 03:36:35 [INFO] HTTP server starting on :8080
+2025/11/16 03:37:09 [INFO] chat message: "hello"
+2025/11/16 04:03:58 [INFO] Core initialized: root=/opt/rictusd data=/opt/rictusd/data listen=:8080
+2025/11/16 04:03:58 [INFO] RictusD starting up…
+2025/11/16 04:03:58 [INFO] RictusD listening on :8080
+2025/11/16 04:03:58 [INFO] HTTP server starting on :8080
+2025/11/16 04:08:59 [INFO] Core initialized: root=/opt/rictusd data=/opt/rictusd/data listen=:8080
+2025/11/16 04:08:59 [INFO] RictusD starting up…
+2025/11/16 04:08:59 [INFO] Mind initialized: address="Madam" phase=1 law_exists=true
+2025/11/16 04:08:59 [INFO] RictusD listening on :8080
+2025/11/16 04:08:59 [INFO] HTTP server starting on :8080
+2025/11/16 04:11:54 [INFO] chat message: "Law"
+2025/11/16 04:12:08 [INFO] chat message: "status"
+2025/11/16 04:12:27 [INFO] chat message: "law status"
+2025/11/16 04:17:38 [INFO] Core initialized: root=/opt/rictusd data=/opt/rictusd/data listen=:8080
+2025/11/16 04:17:38 [INFO] RictusD starting up…
+2025/11/16 04:17:38 [INFO] Mind initialized: address="Madam" phase=1 law_exists=true
+2025/11/16 04:17:38 [INFO] RictusD listening on :8080
+2025/11/16 04:17:38 [INFO] HTTP server starting on :8080
+2025/11/16 04:17:55 [INFO] chat message: "status"
+2025/11/16 04:18:00 [INFO] chat message: "law status"
+2025/11/16 04:25:50 [INFO] Core initialized: root=/opt/rictusd data=/opt/rictusd/data listen=:8080
+2025/11/16 04:25:50 [INFO] RictusD starting up…
+2025/11/16 04:25:50 [INFO] Mind initialized: address="Madam" phase=1 law_exists=true
+2025/11/16 04:25:50 [INFO] RictusD listening on :8080
+2025/11/16 04:25:50 [INFO] HTTP server starting on :8080
+2025/11/16 04:31:44 [INFO] Core initialized: root=/opt/rictusd data=/opt/rictusd/data listen=:8080
+2025/11/16 04:31:44 [INFO] RictusD starting up…
+2025/11/16 04:31:44 [INFO] Mind initialized: address="Madam" phase=1 law_exists=true
+2025/11/16 04:31:44 [INFO] RictusD listening on :8080
+2025/11/16 04:31:44 [INFO] HTTP server starting on :8080
+2025/11/16 04:32:08 [INFO] chat message: "status"
+2025/11/16 05:00:06 [INFO] Core initialized: root=/opt/rictusd data=/opt/rictusd/data listen=:8080
+2025/11/16 05:00:06 [INFO] RictusD starting up…
+2025/11/16 05:00:06 [INFO] Mind initialized: address="Madam" phase=1 law_exists=true
+2025/11/16 05:00:06 [INFO] RictusD listening on :8080
+2025/11/16 05:00:06 [INFO] HTTP server starting on :8080
+2025/11/16 05:01:01 [INFO] chat message: "Goodnight"
+2025/11/16 14:01:00 [INFO] chat message: "law status"
+2025/11/16 14:20:39 [INFO] chat message: "phase report"

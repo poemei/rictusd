@@ -1,0 +1,6 @@
+{
+  "listen_addr": ":8080",
+  "data_dir": "/opt/rictusd/data",
+  "log_level": "info",
+  "log_file": "/opt/rictusd/data/rictusd.log"
+}
